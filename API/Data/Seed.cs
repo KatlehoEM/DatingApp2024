@@ -18,7 +18,8 @@ namespace API.Data
             var roles = new List<AppRole>{
                 new AppRole{Name="Member"},
                 new AppRole{Name="Admin"},
-                new AppRole{Name="Moderator"}
+                new AppRole{Name="Moderator"},
+                new AppRole{Name="VIP"}
             };
 
             foreach(var role in roles){

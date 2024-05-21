@@ -33,6 +33,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
 import { CustomRouteReuseStrategy } from './_services/customRouteReuseStrategy';
 import { RouteReuseStrategy } from '@angular/router';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
+import { VipComponent } from './vip/vip.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
     PhotoManagementComponent,
     RolesModalComponent,
     ConfirmDialogComponent,
+    VipComponent,
   ],
   imports: [
     BrowserModule,
