@@ -1,14 +1,12 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, of, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
-import { PaginatedResult } from '../_models/pagination';
 import { UserParams } from '../_models/userParams';
 import { AccountService } from './account.service';
 import { User } from '../_models/user';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
-import { Message } from '../_models/message';
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +64,6 @@ export class MembersService {
       })
     );
   }
-
   
   getMember(username: string) {
     const member = [...this.memberCache.values()]
@@ -106,4 +103,16 @@ export class MembersService {
 
     return getPaginatedResult<Member[]>(this.baseUrl + 'likes', params, this.http);
   }
+
+  addVisit(username: string){
+    return this.http.post(this.baseUrl + 'visits/' + username,{})
+  }
+ 
+  getVisits(predicate: string, pageNumber: number, pageSize: number, filterVisits: string){
+    let params = getPaginationHeaders(pageNumber, pageSize);
+    params = params.append('predicate', predicate)
+    params = params.append('filterVisits', filterVisits)
+    return getPaginatedResult<Member[]>(this.baseUrl + 'visits', params, this.http);
+  }
+
 }

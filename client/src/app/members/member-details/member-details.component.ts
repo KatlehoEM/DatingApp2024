@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { TabDirective, TabsModule, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { TimeagoModule } from 'ngx-timeago';
@@ -13,6 +13,7 @@ import { PresenceService } from 'src/app/_services/presence.service';
 import { AccountService } from 'src/app/_services/account.service';
 import { User } from 'src/app/_models/user';
 import { take } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-member-details',
@@ -30,7 +31,8 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
   user?: User;
   
   constructor(private accountService: AccountService, private route: ActivatedRoute,
-     private messageService: MessageService, public presenceService: PresenceService){
+     private messageService: MessageService, public presenceService: PresenceService, 
+     private memberService: MembersService, private toastr: ToastrService){
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => {
           if(user) this.user = user;
@@ -53,6 +55,8 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
     })
 
     this.getImages();
+
+    this.addVisit(this.member)
     
   }
 
@@ -85,6 +89,12 @@ selectTab(heading: string){
     for (const photo of this.member?.photos) {
       this.images.push(new ImageItem({src: photo.url, thumb: photo.url}));
     }
+  }
+
+  addVisit(member: Member){
+    this.memberService.addVisit(member.userName).subscribe({
+      next: () => this.toastr.success('You have visited ' + member.knownAs)
+    })
   }
 
 }

@@ -12,7 +12,6 @@ import { RegisterComponent } from './register/register.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
-import { MemberDetailsComponent } from './members/member-details/member-details.component';
 import { SharedModule } from './_modules/shared.module';
 import { TestErrorComponent } from './errors/test-error/test-error.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
@@ -33,7 +32,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
 import { CustomRouteReuseStrategy } from './_services/customRouteReuseStrategy';
 import { RouteReuseStrategy } from '@angular/router';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
-import { VipComponent } from './vip/vip.component';
+import { VisitsComponent } from './visits/visits.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +57,7 @@ import { VipComponent } from './vip/vip.component';
     PhotoManagementComponent,
     RolesModalComponent,
     ConfirmDialogComponent,
-    VipComponent,
+    VisitsComponent,
   ],
   imports: [
     BrowserModule,

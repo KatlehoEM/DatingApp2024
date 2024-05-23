@@ -15,6 +15,7 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
     public DbSet<Message> Messages{get;set;}
     public DbSet<Group> Groups{get;set;}
     public DbSet<Connection> Connections{get;set;}
+    public DbSet<UserVisit> Visits{get;set;}
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -63,5 +64,20 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
                 .HasOne(u => u.Sender)
                 .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
+            
+            // set the primary key
+            builder.Entity<UserVisit>()
+                .HasKey(k => new {k.VisitorId, k.VisitedId});
+
+            // set the relationship
+            builder.Entity<UserVisit>()
+                .HasOne(w => w.Visitor)
+                .WithMany(v => v.VisitedUsers)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<UserVisit>()
+                .HasOne(w => w.Visited)
+                .WithMany(v => v.VisitedByUsers)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 }
